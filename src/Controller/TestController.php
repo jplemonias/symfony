@@ -1,11 +1,12 @@
 <?php
-// src/Controller/TestController.php
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class TestController
 {
+    #[Route('/random/number')]
     public function randomNumber(): Response
     {
         $number = random_int(0, 100);

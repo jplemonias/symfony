@@ -4,4 +4,4 @@ controllers:
 
 app_test_controller:
     path: /random/number
-    controller: App\Controller\TestController::randomNumber
+#    controller: App\Controller\TestController::randomNumber
