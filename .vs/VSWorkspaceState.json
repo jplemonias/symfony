@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\config",
+    "\\migrations",
+    "\\public",
+    "\\public\\img",
+    "\\src",
+    "\\src\\Entity",
+    "\\src\\Repository",
+    "\\templates",
+    "\\tests"
+  ],
+  "PreviewInSolutionExplorer": false
+}
