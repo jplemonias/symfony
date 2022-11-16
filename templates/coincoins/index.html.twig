@@ -1,37 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Coincoins index{% endblock %}
+{% block title %}Coincoins Liste{% endblock %}
 
 {% block body %}
-    <h1>Coincoins index</h1>
+    <h1 class="text-3xl font-bold underline">Coincoins Liste</h1>
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg mx-2">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">Id</th>
+                    <th scope="col" class="py-3 px-6">Content</th>
+                    <th scope="col" class="py-3 px-6">Created_at</th>
+                    <th scope="col" class="py-3 px-6">actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for coincoin in coincoins %}
+                {% if loop.index % 2 == 0 %}
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                {% else %}
+                    <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+                {% endif %}
+                    <td class="py-4 px-6">{{ coincoin.id }}</td>
+                    <td class="py-4 px-6">{{ coincoin.content }}</td>
+                    <td class="py-4 px-6">{{ coincoin.createdAt ? coincoin.createdAt|date('d-m-Y H:i:s') : 'stranger thing' }}</td>
+                    <td class="py-4 px-6">
+                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                            <a href="{{ path('app_coincoins_show', {'id': coincoin.id}) }}">
+                            <button type="button" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                    <i class="fa-regular fa-eye w-4 h-4 fill-current"></i>
+                                </button>
+                            </a>
+                            <a href="{{ path('app_coincoins_edit', {'id': coincoin.id}) }}">
+                                <button type="button" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                    <i class="fa-regular fa-pen-to-square w-4 h-4 fill-current"></i>
+                                </button>
+                            </a>
+                            <a type="button" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                {{ include('coincoins/_delete_form.html.twig') }}
+                            <a>
+                        </div>
+                        <!--<a href="{{ path('app_coincoins_show', {'id': coincoin.id}) }}" class="bg-sky-500 hover:bg-sky-700 ...">show</a>
+                        <a href="{{ path('app_coincoins_edit', {'id': coincoin.id}) }}">edit</a>-->
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Content</th>
-                <th>Created_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for coincoin in coincoins %}
-            <tr>
-                <td>{{ coincoin.id }}</td>
-                <td>{{ coincoin.content }}</td>
-                <td>{{ coincoin.createdAt ? coincoin.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_coincoins_show', {'id': coincoin.id}) }}">show</a>
-                    <a href="{{ path('app_coincoins_edit', {'id': coincoin.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_coincoins_new') }}">Create new</a>
+    <a href="{{ path('app_coincoins_new') }}"><i class="fa-regular fa-pen-to-square"></i> Create new</a>
 {% endblock %}

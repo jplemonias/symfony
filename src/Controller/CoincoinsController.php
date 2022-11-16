@@ -25,6 +25,7 @@ class CoincoinsController extends AbstractController
     public function new(Request $request, CoincoinsRepository $coincoinsRepository): Response
     {
         $coincoin = new Coincoins();
+        $coincoin-> setCreatedAt(new \DateTime);
         $form = $this->createForm(CoincoinsType::class, $coincoin);
         $form->handleRequest($request);
 

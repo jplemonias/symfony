@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\config",
     "\\migrations",
     "\\public",
     "\\public\\img",
     "\\src",
+    "\\src\\Controller",
     "\\src\\Entity",
     "\\src\\Repository",
     "\\templates",
     "\\tests"
   ],
+  "SelectedNode": "\\src\\Controller\\CoincoinsController.php",
   "PreviewInSolutionExplorer": false
 }
