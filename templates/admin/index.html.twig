@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coincoins Liste{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Hello {{ app.user.email }}!<br>Tu es bien Admin ✅</h1>
+    </div>
+    <h1 class="text-3xl font-bold underline">Users Liste</h1>
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg mx-2">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">Id</th>
+                    <th scope="col" class="py-3 px-6">Email</th>
+                    <th scope="col" class="py-3 px-6">Role</th>
+                    <th scope="col" class="py-3 px-6">Password</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %} 
+                {% if loop.index % 2 == 0 %}
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                {% else %}
+                    <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+                {% endif %}
+                    <td class="py-4 px-6">{{ user.id }}</td>
+                    <td class="py-4 px-6">{{ user.email }}</td>
+                    <td class="py-4 px-6">{{ user.roles[0] }}</td>
+                    <td class="py-4 px-6">{{ user.password }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
