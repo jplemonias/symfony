@@ -5,3 +5,6 @@ controllers:
 app_test_controller:
     path: /random/number
 #    controller: App\Controller\TestController::randomNumber
+app_logout:
+    path: /logout
+    methods: GET
