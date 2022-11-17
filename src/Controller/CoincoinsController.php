@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Security\Core\Security;
+
 #[Route('/coincoins')]
 class CoincoinsController extends AbstractController
 {
@@ -22,16 +24,19 @@ class CoincoinsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_coincoins_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CoincoinsRepository $coincoinsRepository): Response
+    public function new(Request $request, CoincoinsRepository $coincoinsRepository, Security $security): Response
     {
         $coincoin = new Coincoins();
         
-        $coincoin-> setCreatedAt(new \DateTime);
-
         $form = $this->createForm(CoincoinsType::class, $coincoin);
         $form->handleRequest($request);
 
+        $user = $security->getUser();
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $coincoin-> setCreatedAt(new \DateTime);
+            $coincoin-> setUser($user);
+            
             $coincoinsRepository->save($coincoin, true);
 
             return $this->redirectToRoute('app_coincoins_index', [], Response::HTTP_SEE_OTHER);
