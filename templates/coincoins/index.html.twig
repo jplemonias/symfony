@@ -12,6 +12,7 @@
                     <th scope="col" class="py-3 px-6">Content</th>
                     <th scope="col" class="py-3 px-6">Created_at</th>
                     <th scope="col" class="py-3 px-6">actions</th>
+                    <th scope="col" class="py-3 px-6">User</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
                         <!--<a href="{{ path('app_coincoins_show', {'id': coincoin.id}) }}" class="bg-sky-500 hover:bg-sky-700 ...">show</a>
                         <a href="{{ path('app_coincoins_edit', {'id': coincoin.id}) }}">edit</a>-->
                     </td>
+                    <td class="py-4 px-6">{{ coincoin.user.aka }}</td>
                 </tr>
             {% else %}
                 <tr>
