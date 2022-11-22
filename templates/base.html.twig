@@ -12,8 +12,51 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+            <script>
+            const mobile_icon = document.getElementById('mobile-icon');
+            const mobile_menu = document.getElementById('mobile-menu');
+            const hamburger_icon = document.querySelector("#mobile-icon i");
+
+            function openCloseMenu() {
+            mobile_menu.classList.toggle('block');
+            mobile_menu.classList.toggle('active');
+            }
+
+            function changeIcon(icon) {
+            icon.classList.toggle("fa-xmark");
+            }
+
+            mobile_icon.addEventListener('click', openCloseMenu);
+            </script>
     </head>
     <body>
+  <header class="h-20 bg-white">
+    <nav>
+<ul class="flex justify-between">
+  <li class="mr-3">
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="#">DashBorad</a>
+    {% else %}
+      {% if is_granted('ROLE_USER') %}
+        <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="#">Profil</a>
+      {% else %}
+        <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="#">CacaProute</a>
+      {% endif %}
+    {% endif %}
+  </li>
+  <li class="mr-3">
+    <a class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4" href="/coincoins">Home</a>
+  </li>
+  <li class="mr-3">
+    {% if is_granted('ROLE_USER') %}
+      <a class="inline-block py-2 px-4 text-gray-400" href="/logout">Déconnection</a>
+    {% else %}
+      <a class="inline-block py-2 px-4 text-gray-400" href="/login">Connection</a>
+    {% endif %}
+  </li>
+</ul>
+    </nav>
+  </header>
         <!--<img src="../img/poo-solid.svg"></img>-->
         {% block body %}{% endblock %}
     </body>

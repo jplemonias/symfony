@@ -20,9 +20,19 @@ class Coincoins
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated_at = null;
+
     #[ORM\ManyToOne(inversedBy: 'user')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    public function __construct() 
+    {
+        $date = new \DateTime;
+        $this ->setCreatedAt($date);
+        $this ->setUpdatedAt($date);
+    }
 
     public function getId(): ?int
     {
@@ -49,6 +59,18 @@ class Coincoins
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

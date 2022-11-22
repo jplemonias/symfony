@@ -13,7 +13,6 @@ class CoincoinsType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('created_at')
         ;
     }
 

@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\Security\Core\Security;
 
-#[Route('/coincoins')]
+#[Route('/coincoins', name :'app_coincoins_')]
 class CoincoinsController extends AbstractController
 {
-    #[Route('/', name: 'app_coincoins_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(CoincoinsRepository $coincoinsRepository): Response
     {
         return $this->render('coincoins/index.html.twig', [
@@ -23,7 +23,7 @@ class CoincoinsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_coincoins_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, CoincoinsRepository $coincoinsRepository, Security $security): Response
     {
         $coincoin = new Coincoins();
@@ -34,7 +34,6 @@ class CoincoinsController extends AbstractController
         $user = $security->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $coincoin-> setCreatedAt(new \DateTime);
             $coincoin-> setUser($user);
             
             $coincoinsRepository->save($coincoin, true);
@@ -48,7 +47,7 @@ class CoincoinsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_coincoins_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Coincoins $coincoin): Response
     {
         return $this->render('coincoins/show.html.twig', [
@@ -56,13 +55,14 @@ class CoincoinsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_coincoins_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Coincoins $coincoin, CoincoinsRepository $coincoinsRepository): Response
     {
         $form = $this->createForm(CoincoinsType::class, $coincoin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($coincoin);
             $coincoinsRepository->save($coincoin, true);
 
             return $this->redirectToRoute('app_coincoins_index', [], Response::HTTP_SEE_OTHER);
@@ -74,7 +74,7 @@ class CoincoinsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_coincoins_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Coincoins $coincoin, CoincoinsRepository $coincoinsRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$coincoin->getId(), $request->request->get('_token'))) {
